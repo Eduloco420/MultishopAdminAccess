@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         data.vigente = form.vigente.checked ? 1 : 0;
 
-        let url = 'http://127.0.0.1:5000/register';
+        let url = `${CONFIG.API_BASE_URL}/register`;
         let method = 'POST';
 
         if (usuarioEditando) {
-            url = `http://127.0.0.1:5000/usuarios/${usuarioEditando.id}`;
+            url = `${CONFIG.API_BASE_URL}/usuarios/${usuarioEditando.id}`;
             method = 'PUT';
             if (!data.password) {
                 delete data.password;
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         try {
-            const response = await fetch(`http://127.0.0.1:5000/usuarios?${params.toString()}`)
+            const response = await fetch(`${CONFIG.API_BASE_URL}/usuarios?${params.toString()}`)
             if (!response.ok) {
                 alert("Usuario no encontrado");
                 return;
