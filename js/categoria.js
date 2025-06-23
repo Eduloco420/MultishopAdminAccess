@@ -33,13 +33,13 @@ async function guardarCategoria() {
     if (!nombre) return alert("Ingresa el nombre de la categoría");
 
     if (id) {
-        await fetch(`http://127.0.0.1:5000/producto/categoria/${id}`, {
+        await fetch(`${CONFIG.API_BASE_URL}/producto/categoria/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nombre })
         });
     } else {
-        await fetch('http://127.0.0.1:5000/producto/categoria', {
+        await fetch(`${CONFIG.API_BASE_URL}/producto/categoria`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ categoria: nombre })
@@ -62,14 +62,14 @@ async function guardarSubcategoria() {
 
     if (id) {
         // Editar
-        await fetch(`http://127.0.0.1:5000/producto/subcategoria/${id}`, {
+        await fetch(`${CONFIG.API_BASE_URL}/producto/subcategoria/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ subcategoria: nombre, categoria })
         });
     } else {
         // Crear nueva
-        await fetch('http://127.0.0.1:5000/producto/subcategoria', {
+        await fetch(`${CONFIG.API_BASE_URL}/producto/subcategoria`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ subcategoria: nombre, categoria })
@@ -83,7 +83,7 @@ async function guardarSubcategoria() {
 }
 
 async function cargarCategorias() {
-    const res = await fetch('http://127.0.0.1:5000/producto/categoria');
+    const res = await fetch(`${CONFIG.API_BASE_URL}/producto/categoria`);
     const data = await res.json();
     const categorias = data.categoria
     const select = document.getElementById('selectCategoria');
@@ -102,7 +102,7 @@ async function cargarCategorias() {
 }
 
 async function cargarSubcategorias() {
-    const res = await fetch('http://127.0.0.1:5000/producto/subcategoria');
+    const res = await fetch(`${CONFIG.API_BASE_URL}/producto/subcategoria`);
     const data = await res.json();
     const subcategorias = data.subcategorias
     const tbody = document.getElementById('tbodySubcategorias');

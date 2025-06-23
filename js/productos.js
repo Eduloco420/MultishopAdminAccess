@@ -1,9 +1,8 @@
-const API_LISTAR_PRODUCTOS = 'http://127.0.0.1:5000/producto';
-const URL_IMAGEN = 'http://127.0.0.1:5000/uploads/';
+const API_LISTAR_PRODUCTOS = `${CONFIG.API_BASE_URL}/producto`;
+const URL_IMAGEN = `${CONFIG.API_BASE_URL}/uploads/`;
 
 let paginaActual = 1;
 
-// Cargamos los productos según la página
 async function cargarProductos(pagina = 1) {
     const res = await fetch(`${API_LISTAR_PRODUCTOS}?pagina=${pagina}`);
     const data = await res.json();
@@ -56,7 +55,6 @@ function renderPaginador(paginaActual, paginasTotal) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Formateo de precios
 function formatearPrecio(valor) {
     return valor.toLocaleString('es-CL');
 }

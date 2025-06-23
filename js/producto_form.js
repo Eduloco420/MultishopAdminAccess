@@ -1,11 +1,9 @@
-// URLs de tu API (ajustar según tu backend real)
-const API_CATEGORIAS = 'http://127.0.0.1:5000/producto/categoria';
-const API_SUBCATEGORIAS = 'http://127.0.0.1:5000/producto/subcategoria?categoria=';
-const API_MARCAS = 'http://127.0.0.1:5000/producto/marca?search=';
-const API_SUCURSALES = 'http://127.0.0.1:5000/sucursal';
-const API_CREAR_PRODUCTO = 'http://127.0.0.1:5000/producto';
+const API_CATEGORIAS = `${CONFIG.API_BASE_URL}/producto/categoria`;
+const API_SUBCATEGORIAS = `${CONFIG.API_BASE_URL}/producto/categoria?categoria=`;
+const API_MARCAS = `${CONFIG.API_BASE_URL}/producto/marca?search=`;
+const API_SUCURSALES =  `${CONFIG.API_BASE_URL}/sucursal`
+const API_CREAR_PRODUCTO = `${CONFIG.API_BASE_URL}/producto`
 
-// Al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     cargarCategorias();
     cargarSucursales();
@@ -15,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('marcaInput').addEventListener('input', buscarMarcas);
 });
 
-// ------ CARGAR COMBOS ------
 async function cargarCategorias() {
     const res = await fetch(API_CATEGORIAS);
     const data = await res.json();
@@ -64,7 +61,7 @@ function buscarMarcas() {
         const res = await fetch(`${API_MARCAS}${encodeURIComponent(texto)}`);
         const data = await res.json();
         mostrarSugerenciasMarca(data);
-    }, 300); // Debounce 300ms
+    }, 300);
 }
 
 function mostrarSugerenciasMarca(marcas) {
