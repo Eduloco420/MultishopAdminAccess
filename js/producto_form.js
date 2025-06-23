@@ -1,10 +1,11 @@
 const API_CATEGORIAS = `${CONFIG.API_BASE_URL}/producto/categoria`;
-const API_SUBCATEGORIAS = `${CONFIG.API_BASE_URL}/producto/categoria?categoria=`;
+const API_SUBCATEGORIAS = `${CONFIG.API_BASE_URL}/producto/subcategoria?categoria=`;
 const API_MARCAS = `${CONFIG.API_BASE_URL}/producto/marca?search=`;
 const API_SUCURSALES =  `${CONFIG.API_BASE_URL}/sucursal`
 const API_CREAR_PRODUCTO = `${CONFIG.API_BASE_URL}/producto`
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("JS CARGADO Y EJECUTANDOSE");
     cargarCategorias();
     cargarSucursales();
 
@@ -14,9 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function cargarCategorias() {
+    console.log("Llamando a cargarCategorias...");
     const res = await fetch(API_CATEGORIAS);
     const data = await res.json();
     const categoria = data.categoria
+
+    console.log("Respuesta completa:", data);
+    console.log("Array de categorías:", data.categoria);
+
     const select = document.getElementById('categoriaSelect');
     
     const optDefault = document.createElement('option');
