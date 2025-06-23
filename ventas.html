@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ventas</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <style>
+    .main {
+    flex: 1;
+    padding: 30px;
+    }
+
+    .filter-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    }
+
+    .filter-form input[type="text"],
+    .filter-form select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    }
+
+    .filter-form button {
+    padding: 6px 12px;
+    background-color: #7b5bfa;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    .filter-form button:hover {
+    background-color: #6345d9;
+    }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+
+    th, td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    }
+
+    th {
+    background-color: #f0f0f0;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="sidebar-container">
+  </div>
+
+  <div class="main">
+    <div class="filter-form">
+      <select id="estado">
+        <option value="">Estado</option>
+        <option value="1">Pendiente</option>
+        <option value="2">Pagado</option>
+        <option value="3">Cancelado</option>
+      </select>
+      <input type="date" id="fechaDesde" placeholder="Fecha desde">
+      <input type="date" id="fechaHasta" placeholder="Fecha hasta">
+      <label><input type="checkbox" id="envio"> Envío</label>
+      <label><input type="checkbox" id="retiro"> Retiro</label>
+      <button onclick="cargarVentas()">Buscar</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nro Venta</th>
+          <th>Rut Cliente</th>
+          <th>Nombre Cliente</th>
+          <th>Mail Cliente</th>
+          <th>Fecha Venta</th>
+          <th>Estado Venta</th>
+          <th>Glosa Estado Venta</th>
+        </tr>
+      </thead>
+      <tbody id="tablaVentas">
+        
+      </tbody>
+    </table>
+  </div>
+
+  <script src="js/ventas.js"></script>
+  <script src="js/sidebar.js"></script>
+</body>
+</html>

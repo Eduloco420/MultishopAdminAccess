@@ -5,15 +5,21 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         
         const form = e.target;
+        form.rut.disabled = false;  
         const formData = new FormData(form);
+        form.rut.disabled = true;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true; 
 
         const rut = form.rut.value;
 
         if (!Fn.validaRut(rut)) {
             alert("El RUT ingresado no es válido.");
+            submitBtn.disabled = false;
             return;
         }
 
+        
         const data = Object.fromEntries(formData.entries());
 
         data.vigente = form.vigente.checked ? 1 : 0;
@@ -45,13 +51,15 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 const result = await response.json();
                 alert(result.mensaje);
-                console.log(result);
                 usuarioEditando = null;
-                //form.reset();
+                form.rut.disabled = false;
+                form.reset();
             }
         } catch (error) {
             console.error('Error:', error)
             alert('Error creando al usuario, favor validar los datos')
+        } finally {
+            submitBtn.disabled = false;
         }
     });
 
@@ -70,10 +78,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (!Fn.validaRut(rut)) {
-            alert("El RUT ingresado no es válido.");
-            return;
+        if (rut){
+            if (!Fn.validaRut(rut)) {
+                alert("El RUT ingresado no es válido.\nDebe ingresarse sin puntos, con guion y digito verificador");
+                return;
+            }
         }
+        
 
         try {
             const response = await fetch(`http://127.0.0.1:5000/usuarios?${params.toString()}`)
@@ -96,9 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
             form.rol.value = usuario.rol || '';
             form.password.value = '';
             form.vigente.checked = usuario.activo === 1;
-            
-
-            alert(data.mensaje)
 
         } catch (error) {
             console.error('Error al buscar usuario:', error);

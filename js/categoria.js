@@ -3,36 +3,83 @@ function mostrar(tipo) {
     document.getElementById('tablaSubcategorias').style.display = tipo === 'subcategorias' ? 'block' : 'none';
 }
 
-async function guardarCategoria() {
-    const categoria = document.getElementById('inputCategoria').value;
-    if (!categoria) return alert("Ingresa el nombre de la categoría");
-
-    await fetch('http://127.0.0.1:5000/producto/categoria', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ categoria })
-    });
-
+function limpiarCategoria() {
     document.getElementById('inputCategoria').value = '';
-    await cargarCategorias();
-    await mostrar('categorias');
+    document.getElementById('categoriaIdEditar').value = '';
 }
 
+function limpiarSubcategoria() {
+    document.getElementById('inputSubcategoria').value = '';
+    document.getElementById('subcategoriaIdEditar').value = '';
+    document.getElementById('selectCategoria').selectedIndex = 0;
+}
+
+function editarCategoria(id, nombre) {
+    document.getElementById('inputCategoria').value = nombre;
+    document.getElementById('categoriaIdEditar').value = id;
+}
+
+function editarSubcategoria(id, nombre, categoriaId) {
+    document.getElementById('inputSubcategoria').value = nombre;
+    document.getElementById('selectCategoria').value = categoriaId;
+    document.getElementById('subcategoriaIdEditar').value = id;
+}
+
+
+async function guardarCategoria() {
+    const nombre = document.getElementById('inputCategoria').value;
+    const id = document.getElementById('categoriaIdEditar').value;
+
+    if (!nombre) return alert("Ingresa el nombre de la categoría");
+
+    if (id) {
+        await fetch(`http://127.0.0.1:5000/producto/categoria/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre })
+        });
+    } else {
+        await fetch('http://127.0.0.1:5000/producto/categoria', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ categoria: nombre })
+        });
+    }
+
+    document.getElementById('inputCategoria').value = '';
+    document.getElementById('categoriaIdEditar').value = '';
+    await cargarCategorias();
+    mostrar('categorias');
+}
+
+
 async function guardarSubcategoria() {
-    const subcategoria = document.getElementById('inputSubcategoria').value;
+    const nombre = document.getElementById('inputSubcategoria').value;
     const categoria = document.getElementById('selectCategoria').value;
+    const id = document.getElementById('subcategoriaIdEditar').value;
 
-    if (!subcategoria || !categoria) return alert("Completa ambos campos");
+    if (!nombre || !categoria) return alert("Completa ambos campos");
 
-    await fetch('http://127.0.0.1:5000/producto/subcategoria', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ subcategoria: subcategoria, categoria: categoria })
-    });
+    if (id) {
+        // Editar
+        await fetch(`http://127.0.0.1:5000/producto/subcategoria/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ subcategoria: nombre, categoria })
+        });
+    } else {
+        // Crear nueva
+        await fetch('http://127.0.0.1:5000/producto/subcategoria', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ subcategoria: nombre, categoria })
+        });
+    }
 
     document.getElementById('inputSubcategoria').value = '';
+    document.getElementById('subcategoriaIdEditar').value = '';
     await cargarSubcategorias();
-    await mostrar('subcategorias');
+    mostrar('subcategorias');
 }
 
 async function cargarCategorias() {
@@ -46,7 +93,11 @@ async function cargarCategorias() {
 
     categorias.forEach(cat => {
     select.innerHTML += `<option value="${cat.id}">${cat.nombre}</option>`;
-    tbody.innerHTML += `<tr><td>${cat.id}</td><td>${cat.nombre}</td><td><a href="#">Editar</a></td></tr>`;
+    tbody.innerHTML += `<tr>
+        <td>${cat.id}</td>
+        <td>${cat.nombre}</td>
+        <td><a href="#" onclick="editarCategoria(${cat.id}, '${cat.nombre}')">Editar</a></td>
+    </tr>`;
     });
 }
 
@@ -58,7 +109,12 @@ async function cargarSubcategorias() {
     tbody.innerHTML = '';
 
     subcategorias.forEach(sub => {
-    tbody.innerHTML += `<tr><td>${sub.id}</td><td>${sub.nombre}</td><td>${sub.categoriaNom}</td><td><a href="#">Editar</a></td></tr>`;
+    tbody.innerHTML += `<tr>
+        <td>${sub.id}</td>
+        <td>${sub.categoriaNom}</td>
+        <td>${sub.nombre}</td>
+        <td><a href="#" onclick="editarSubcategoria(${sub.id}, '${sub.nombre}', ${sub.categoria})">Editar</a></td>
+    </tr>`;
     });
 }
 
