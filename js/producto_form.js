@@ -4,14 +4,15 @@ const API_MARCAS = `${CONFIG.API_BASE_URL}/producto/marca?search=`;
 const API_SUCURSALES =  `${CONFIG.API_BASE_URL}/sucursal`
 const API_CREAR_PRODUCTO = `${CONFIG.API_BASE_URL}/producto`
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("JS CARGADO Y EJECUTANDOSE");
-    cargarCategorias();
-    cargarSucursales();
+document.addEventListener('DOMContentLoaded', async () => {
+    document.getElementById('loading-container').style.display = 'flex';
+    await cargarCategorias();
+    await cargarSucursales();
 
     document.getElementById('categoriaSelect').addEventListener('change', cargarSubcategorias);
     document.getElementById('productoForm').addEventListener('submit', enviarFormulario);
     document.getElementById('marcaInput').addEventListener('input', buscarMarcas);
+    document.getElementById('loading-container').style.display = 'none';
 });
 
 async function cargarCategorias() {
@@ -47,7 +48,7 @@ async function cargarSubcategorias() {
     const res = await fetch(API_SUBCATEGORIAS + idCat);
     const data = await res.json();
     const select = document.getElementById('subCategoriaSelect');
-    select.innerHTML = ''; // limpiar
+    select.innerHTML = '';
     data.forEach(sub => {
         const opt = document.createElement('option');
         opt.value = sub.id;
@@ -165,7 +166,6 @@ async function cargarSucursales() {
     window.sucursales = sucursales; // lo guardo global para usar en los stocks
 }
 
-// ------ ESPECIFICACIONES ------
 function agregarEspecificacion() {
     const container = document.getElementById('especificacionesContainer');
 
@@ -185,7 +185,6 @@ function agregarEspecificacion() {
     container.appendChild(div);
 }
 
-// ------ STOCK ------
 function agregarOpcionStock() {
     const container = document.getElementById('stockContainer');
 
@@ -224,7 +223,6 @@ function agregarSucursal(button) {
     divSuc.appendChild(div);
 }
 
-// ------ NUEVA MARCA ------
 function nuevaMarca() {
     const nombre = prompt("Ingrese el nombre de la nueva marca:");
     if (!nombre) return;
@@ -239,7 +237,6 @@ function nuevaMarca() {
     select.appendChild(opt);
 }
 
-// ------ ENVIAR FORMULARIO ------
 async function enviarFormulario(e) {
     e.preventDefault();
 
@@ -251,6 +248,9 @@ async function enviarFormulario(e) {
     const jsonData = construirJson();
     const formData = new FormData();
     formData.append('data', JSON.stringify(jsonData));
+        
+    document.getElementById('loading-container').style.display = 'flex';
+
 
     archivosSeleccionados.forEach(archivo => {
         formData.append('imagenes', archivo);
@@ -269,6 +269,8 @@ async function enviarFormulario(e) {
     } else {
         alert(respuesta.mensaje || 'Error al crear producto');
     }
+
+    document.getElementById('loading-container').style.display = 'none';
 }
 
 function construirJson() {

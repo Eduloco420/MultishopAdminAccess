@@ -1,13 +1,20 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar fijo a la izquierda */
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 200px;
-  height: 100vh;
   background-color: #f1f5f9;
   border-right: 1px solid #ccc;
   padding-top: 1rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
+
 .sidebar a {
   display: block;
   padding: 12px;
@@ -17,10 +24,31 @@
   text-align: center;
   border-bottom: 1px solid #ccc;
 }
+
 .sidebar a:hover {
   background-color: #e2e8f0;
 }
+
+/* Contenido principal ocupa el resto */
 main {
-  margin-left: 200px;
+  flex: 1;
   padding: 2rem;
+}
+
+/* Responsive: cuando la pantalla es chica, el sidebar va arriba */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+
+  main {
+    padding: 1rem;
+  }
 }

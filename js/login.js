@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const data = Object.fromEntries(formData.entries());
 
+        document.getElementById('loading-container').style.display = 'flex';
+
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/login`, {
                 method: 'POST',
@@ -25,10 +27,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     localStorage.setItem('token', result.token); 
                     window.location.href = 'index.html';
                 }
-            }     
+            }
 
         } catch (error) {
             console.error('Error:', error);
-        }
+        }finally{
+            document.getElementById('loading-container').style.display = 'none';
+        } 
     });
 });

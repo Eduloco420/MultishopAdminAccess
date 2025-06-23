@@ -59,6 +59,13 @@ function formatearPrecio(valor) {
     return valor.toLocaleString('es-CL');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    cargarProductos();
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        document.getElementById('loading-container').style.display = 'flex';
+        await cargarProductos();
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        document.getElementById('loading-container').style.display = 'none';
+    }
 });
