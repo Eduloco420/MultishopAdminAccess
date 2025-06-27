@@ -173,10 +173,10 @@ function agregarEspecificacion() {
     div.className = 'row mb-2';
     div.innerHTML = `
         <div class="col">
-            <input type="text" class="form-control" placeholder="Nombre" name="spec-nombre">
+            <input type="text" class="form-control" placeholder="Nombre" name="spec-nombre" maxlength="40">
         </div>
         <div class="col">
-            <input type="text" class="form-control" placeholder="Valor" name="spec-valor">
+            <input type="text" class="form-control" placeholder="Valor" name="spec-valor" maxlength="40">
         </div>
         <div class="col-auto">
             <button type="button" class="btn btn-danger" onclick="this.parentElement.parentElement.remove()">X</button>
@@ -194,7 +194,7 @@ function agregarOpcionStock() {
 
     div.innerHTML = `
         <div class="mb-2">
-            <input type="text" class="form-control" placeholder="Opción (ej: Negro, Azul)" name="stock-opcion">
+            <input type="text" class="form-control" placeholder="Opción (ej: Negro, Azul)" maxlength="40" name="stock-opcion">
         </div>
         <div class="stock-sucursales"></div>
         <button type="button" class="btn btn-sm btn-secondary mb-2" onclick="agregarSucursal(this)">Agregar Sucursal</button>
