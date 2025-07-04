@@ -26,7 +26,7 @@ function mostrarProductos(productos) {
                     <strong>Marca:</strong> ${prod.nomMarca}<br>
                     <strong>Precio:</strong> $${formatearPrecio(prod.valorOriginal)}
                 </p>
-                <a href="producto_form.html?id=${prod.idProducto}" class="btn btn-sm btn-primary">Editar</a>
+                <a href="editar_producto.html?id=${prod.idProducto}" class="btn btn-sm btn-primary">Editar</a>
             </div>
         `;
         container.appendChild(card);

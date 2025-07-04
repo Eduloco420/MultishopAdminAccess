@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     await cargarSucursales();
 
     document.getElementById('categoriaSelect').addEventListener('change', cargarSubcategorias);
-    document.getElementById('productoForm').addEventListener('submit', enviarFormulario);
+    if (!window.location.href.includes('editar_producto.html')) {
+        document.getElementById('productoForm').addEventListener('submit', enviarFormulario);
+    }
     document.getElementById('marcaInput').addEventListener('input', buscarMarcas);
     document.getElementById('loading-container').style.display = 'none';
 });
@@ -25,6 +27,7 @@ async function cargarCategorias() {
     console.log("Array de categorías:", data.categoria);
 
     const select = document.getElementById('categoriaSelect');
+    select.innerHTML = ''; 
     
     const optDefault = document.createElement('option');
     optDefault.value = "";
@@ -130,7 +133,6 @@ function manejarArchivosSeleccionados(e) {
 
     actualizarListaImagenes();
 
-    // Limpiamos el input para poder volver a seleccionar archivos
     e.target.value = null;
 }
 
@@ -142,21 +144,37 @@ function actualizarListaImagenes() {
         const div = document.createElement('div');
         div.className = 'd-flex justify-content-between align-items-center border p-2 mb-1';
 
-        div.innerHTML = `
-            <span>${archivo.name} (${(archivo.size / 1024).toFixed(1)} KB)</span>
-            <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
-        `;
+        const imgPreview = document.createElement('img');
+        imgPreview.src = URL.createObjectURL(archivo);
+        imgPreview.width = 100;
 
-        div.querySelector('button').addEventListener('click', () => eliminarArchivo(index));
+        const span = document.createElement('span');
+        span.textContent = archivo.name;
+        span.className = 'ms-3';
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'd-flex align-items-center';
+        infoDiv.appendChild(imgPreview);
+        infoDiv.appendChild(span);
+
+        const btnEliminar = document.createElement('button');
+        btnEliminar.type = 'button';
+        btnEliminar.className = 'btn btn-sm btn-danger';
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.addEventListener('click', () => eliminarArchivo(index, div));
+
+        div.appendChild(infoDiv);
+        div.appendChild(btnEliminar);
 
         lista.appendChild(div);
     });
 }
 
-function eliminarArchivo(index) {
+function eliminarArchivo(index, divElemento) {
     archivosSeleccionados.splice(index, 1);
-    actualizarListaImagenes();
+    divElemento.remove();
 }
+
 
 
 async function cargarSucursales() {
