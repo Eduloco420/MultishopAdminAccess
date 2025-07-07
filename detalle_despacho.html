@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle Despacho</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <script src="js/config.js"></script>
+  <script src="js/detalle_despacho.js" defer></script>
+  <script src="js/sidebar.js" defer></script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <main class="container mt-4">
+    <h2>Detalle de Despacho</h2>
+    <form id="formDespacho">
+
+      <div class="row">
+        <div class="col-md-6">
+          <label>Cliente</label>
+          <input type="text" class="form-control" id="nomCliente" disabled>
+        </div>
+        <div class="col-md-6">
+          <label>RUT</label>
+          <input type="text" class="form-control" id="rutCliente" disabled>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <label>Email</label>
+          <input type="text" class="form-control" id="mailCliente" disabled>
+        </div>
+        <div class="col-md-6">
+          <label>Fecha Despacho</label>
+          <input type="text" class="form-control" id="fecDespacho" disabled>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+      <div class="col-md-6">
+        <label>Dirección</label>
+        <input type="text" class="form-control" id="direccion" disabled>
+      </div>
+      <div class="col-md-6">
+        <label>Comuna</label>
+        <input type="text" class="form-control" id="comuna" disabled>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-6">
+        <label>Provincia</label>
+        <input type="text" class="form-control" id="provincia" disabled>
+      </div>
+      <div class="col-md-6">
+        <label>Región</label>
+        <input type="text" class="form-control" id="region" disabled>
+      </div>
+    </div>
+
+
+      <div class="mt-4">
+        <label>Estado del Despacho</label>
+        <select class="form-select" id="estadoDespacho">
+          <option value="1">Pendiente Envío</option>
+          <option value="2">Enviado</option>
+          <option value="3">Pendiente confirmación Recepción</option>
+          <option value="4">Recepción confirmada</option>
+          <option value="5">Cancelado</option>
+        </select>
+      </div>
+
+      <div class="mt-3">
+        <label>Código de Seguimiento</label>
+        <input type="text" class="form-control" id="codSeguimiento">
+      </div>
+
+      <div class="mt-3">
+        <label>Empresa de Despacho</label>
+        <input type="text" class="form-control" id="empresaDespacho">
+      </div>
+
+      <div class="mt-3">
+        <label>Enlace de Seguimiento</label>
+        <input type="text" class="form-control" id="enlaceSeguimiento">
+      </div>
+
+      <div class="mt-3">
+        <label>Fecha Estimada de Recepción</label>
+        <input type="date" class="form-control" id="fecEstimadaRecepcion">
+      </div>
+
+      <button class="btn btn-success mt-4" type="submit">Guardar Cambios</button>
+    </form>
+  </main>
+</body>
+</html>

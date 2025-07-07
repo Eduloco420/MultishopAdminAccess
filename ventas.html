@@ -19,9 +19,27 @@
     <div id="loading-container" style="display: none;">
       <img src="assets/loading.gif" alt="Cargando..." width="100">
     </div>
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Ventas</h2>
+
+    <h2>Ventas</h2>
+
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label>ID Venta</label>
+        <input type="text" class="form-control" id="inputID">
+      </div>
+      <div class="col-md-3">
+        <label>Desde</label>
+        <input type="date" class="form-control" id="inputDesde">
+      </div>
+      <div class="col-md-3">
+        <label>Hasta</label>
+        <input type="date" class="form-control" id="inputHasta">
+      </div>
+      <div class="col-md-3 d-flex align-items-end">
+        <button class="btn btn-primary w-100" id="btnBuscar">Buscar</button>
+      </div>
     </div>
+
     <div class="table-container">
       <table class="table table-striped table-bordered align-middle">
         <thead class="table-dark">
@@ -36,7 +54,7 @@
           </tr>
         </thead>
         <tbody id="ventasBody">
-          <!-- Contenido dinámico generado por JS -->
+          <tr><td colspan="7" class="text-center">Realiza una búsqueda para mostrar resultados</td></tr>
         </tbody>
       </table>
     </div>

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await cargarCategorias();
     await cargarSucursales();
     await cargarDatosProducto();
+    document.getElementById('productoForm').addEventListener('submit', enviarFormularioEditar);
     const btnGuardarStock = document.getElementById('btnGuardarStock');
     if (btnGuardarStock) {
         btnGuardarStock.addEventListener('click', guardarStock);

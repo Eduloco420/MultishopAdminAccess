@@ -5,6 +5,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const pagosBody = document.getElementById('pagosBody');
   const totalVentaCell = document.getElementById('totalVenta');
 
+  document.getElementById('btnGuardarEstado').addEventListener('click', async () => {
+    const nuevoEstado = parseInt(document.getElementById('estadoVenta').value);
+
+    try {
+      const res = await fetch(`${CONFIG.API_BASE_URL}/ventas/estado/${ventaId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ estadoVenta: nuevoEstado })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('Estado actualizado correctamente');
+        location.reload();  // Recarga para mostrar el nuevo estado
+      } else {
+        alert(data.mensaje || 'Error al actualizar el estado');
+        alert(data.error)
+      }
+    } catch (error) {
+      console.error('Error al actualizar estado:', error);
+      alert('Error inesperado al actualizar el estado');
+    }
+  });
+
+
   const params = new URLSearchParams(window.location.search);
   const ventaId = params.get('id');
 
@@ -27,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const info = data.info;
         const productos = data.productos;
         const pagos = data.Pagos;
+
+        document.getElementById('estadoVenta').value = info.estadoVenta;
 
         // Mostrar info cliente + venta
         infoVenta.innerHTML = `

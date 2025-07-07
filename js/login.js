@@ -18,16 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify(data)
             });
 
-            if (!response.ok) {
-                alert('Credenciales incorrectas')
-            }else{
-                const result = await response.json();
-                alert(result.mensaje);
-                if (result.token) {
-                    localStorage.setItem('token', result.token); 
-                    window.location.href = 'index.html';
-                }
+            
+            const result = await response.json();
+            alert(result.mensaje || 'Error en las credenciales de ingreso');
+            if (result.token) {
+                localStorage.setItem('token', result.token); 
+                window.location.href = 'index.html';
             }
+            
 
         } catch (error) {
             console.error('Error:', error);

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Precios y Descuentos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <script src="js/sidebar.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 p-0">
+        <div id="sidebar-container"></div>
+      </div>
+      <div class="col-md-10 p-4">
+        <h2>Editar Precios y Descuentos</h2>
+
+        <div class="mb-4">
+            <h4>Precios</h4>
+            <div id="preciosContainer"></div>
+            <button class="btn btn-secondary btn-sm mt-2" onclick="agregarPrecio()">Agregar Precio</button>
+            <button class="btn btn-primary btn-sm mt-2" onclick="guardarPrecios()">Guardar Precios</button>
+        </div>
+
+        <div class="mb-4">
+            <h4>Descuentos</h4>
+            <div id="descuentosContainer"></div>
+            <button class="btn btn-secondary btn-sm mt-2" onclick="agregarDescuento()">Agregar Descuento</button>
+            <button class="btn btn-primary btn-sm mt-2" onclick="guardarDescuentos()">Guardar Descuentos</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/editar_precios.js"></script>
+</body>
+</html>
