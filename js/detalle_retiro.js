@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
+  validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
   const idRetiro = new URLSearchParams(window.location.search).get("id");
   if (!idRetiro) return alert("ID de retiro no encontrado en la URL");
 

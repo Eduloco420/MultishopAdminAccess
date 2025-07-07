@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
+  validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
   const idDespacho = new URLSearchParams(window.location.search).get('id');
   if (!idDespacho) {
     alert('ID de despacho no especificado.');

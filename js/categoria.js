@@ -119,6 +119,11 @@ async function cargarSubcategorias() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
     
     cargarCategorias();
     cargarSubcategorias();

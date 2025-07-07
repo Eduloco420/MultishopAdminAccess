@@ -2,6 +2,11 @@ const idProducto = new URLSearchParams(window.location.search).get("id");
 const API_DETALLE_PRODUCTO = `${CONFIG.API_BASE_URL}/producto/detalle/${idProducto}`;
 
 document.addEventListener('DOMContentLoaded', async () => {
+    validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
     await cargarDatos();
 });
 

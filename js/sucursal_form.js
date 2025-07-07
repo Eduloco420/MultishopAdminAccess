@@ -9,6 +9,11 @@ const CACHE_KEY = "ubicacionesCache";
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;  // 24 horas
 
 document.addEventListener("DOMContentLoaded", async () => {
+  validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
   document.getElementById('loading-container').style.display = 'flex';
   await obtenerUbicaciones();
   poblarRegiones();

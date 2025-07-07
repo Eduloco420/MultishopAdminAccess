@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+  validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
   document.getElementById('btnBuscar').addEventListener('click', buscarDespachos);
 });
 

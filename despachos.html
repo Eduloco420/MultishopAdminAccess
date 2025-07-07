@@ -8,14 +8,8 @@
   <script src="js/config.js"></script>
   <script src="js/sidebar.js" defer></script>
   <script src="js/despachos.js" defer></script>
-  <script src="js/validarRut.js"></script>
-  <script>
-    validarToken().then(esValido => {
-      if (!esValido) {
-        window.location.href = 'login.html';
-      }
-    });
-  </script>
+  <script src="js/auth.js"></script>
+
 </head>
 <body>
   <!-- SIDEBAR -->

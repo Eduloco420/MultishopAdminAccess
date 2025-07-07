@@ -4,6 +4,11 @@ const URL_IMAGEN = `${CONFIG.API_BASE_URL}/uploads/`;
 let paginaActual = 1;
 
 async function cargarProductos(pagina = 1) {
+    validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
     const res = await fetch(`${API_LISTAR_PRODUCTOS}?pagina=${pagina}`);
     const data = await res.json();
     mostrarProductos(data.Productos);

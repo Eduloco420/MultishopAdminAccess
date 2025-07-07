@@ -38,4 +38,11 @@ function editarSucursal(id) {
   window.location.href = `sucursal_form.html?id=${id}`;
 }
 
-document.addEventListener('DOMContentLoaded', cargarSucursales);
+document.addEventListener('DOMContentLoaded', async () => {
+  validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
+  cargarSucursales()
+});

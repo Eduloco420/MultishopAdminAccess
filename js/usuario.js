@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     let usuarioEditando = null;
+    validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
 
     document.getElementById('usuarios').addEventListener('submit', async function (e) {
         e.preventDefault();

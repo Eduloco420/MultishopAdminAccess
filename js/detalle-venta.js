@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+  validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
   const loading = document.getElementById('loading-container');
   const infoVenta = document.getElementById('infoVenta');
   const productosBody = document.getElementById('productosBody');

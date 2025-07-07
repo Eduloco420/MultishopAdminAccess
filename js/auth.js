@@ -14,10 +14,12 @@ async function validarToken() {
         });
 
         if (!response.ok) {
+            console.log('problemas por aca papito')
             return false;
         }
 
         const result = await response.json();
+        console.log(result)
         return true;
 
     } catch (error) {

@@ -3,6 +3,11 @@ const API_DETALLE_PRODUCTO = `${CONFIG.API_BASE_URL}/producto/detalle/${idProduc
 const API_IMAGEN = `${CONFIG.API_BASE_URL}/uploads/`
 
 document.addEventListener('DOMContentLoaded', async () => {
+    validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
     document.getElementById('loading-container').style.display = 'flex';
     await cargarCategorias();
     await cargarSucursales();

@@ -1,6 +1,11 @@
 const API_TIENDA = `${CONFIG.API_BASE_URL}/tienda`;
 
 document.addEventListener('DOMContentLoaded', async () => {
+  validarToken().then(esValido => {
+      if (!esValido) {
+        window.location.href = 'login.html';
+      }
+    });
   const res = await fetch(API_TIENDA);
   const data = await res.json();
 
