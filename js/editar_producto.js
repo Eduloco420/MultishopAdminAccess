@@ -1,5 +1,6 @@
 const idProducto = new URLSearchParams(window.location.search).get("id");
 const API_DETALLE_PRODUCTO = `${CONFIG.API_BASE_URL}/producto/detalle/${idProducto}`;
+const API_IMAGEN = `${CONFIG.API_BASE_URL}/uploads/`
 
 document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('loading-container').style.display = 'flex';
@@ -75,7 +76,7 @@ async function cargarDatosProducto() {
 
     div.innerHTML = `
         <div class="d-flex align-items-center">
-            <img src="http://127.0.0.1:5000/uploads/${img.imagen}" alt="Imagen Producto" width="100">
+            <img src="${API_IMAGEN}/${img.imagen}" alt="Imagen Producto" width="100">
             <span class="ms-3">${img.imagen}</span>
         </div>
         <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
